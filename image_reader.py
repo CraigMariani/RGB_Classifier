@@ -11,6 +11,9 @@ class ImageReader:
     def __init__(self):
         self.path = Path('colors/')
 
+    def clear_directory(self):
+        subprocess.Popen("rm color_*", cwd="colors/")
+
     def read_directory(self):
         path = self.path
         
@@ -24,7 +27,7 @@ class ImageReader:
             q = im.quantize(colors=1)
 
             # Now look at the first 2 colours, each 3 RGB entries in the palette:
-            rgb_val = tuple(q.getpalette()[:3])    
+            rgb_val = list(q.getpalette()[:3])
             rgb_vals.append(rgb_val)    
         return rgb_vals
 
@@ -42,4 +45,5 @@ class ImageReader:
 if __name__ == '__main__':
     im = ImageReader() 
     # im.create_colors()
-    print(im.read_directory())
+    # print(im.read_directory())
+    im.clear_directory()
